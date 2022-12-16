@@ -16,14 +16,14 @@ interface JestNativeMatchers<R extends void | Promise<void>> {
   toBeEmpty(): R;
 }
 
-// `@types/jest`
+// implicit jest globals, types coming from `@types/jest`
 declare global {
   namespace jest {
     interface Matchers<R, T> extends JestNativeMatchers<R> {}
   }
 }
 
-// `@jest/globals`
+// explicit jest globals, types coming from `@jest/globals`
 declare module '@jest/expect' {
   interface Matchers<R extends void | Promise<void>> extends JestNativeMatchers<R> {}
 }
