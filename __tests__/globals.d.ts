@@ -1,5 +1,4 @@
 declare module '@jest/expect' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Matchers<R extends void | Promise<void>> {
     toBeDisabled(): R;
     toBeEmptyElement(): R;
