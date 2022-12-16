@@ -1,19 +1,29 @@
 import { Matchers } from '@jest/expect';
 
-declare module '@jest/expect' {
-  interface Matchers<R extends void | Promise<void>> {
-    toBeDisabled(): R;
-    toBeEmptyElement(): R;
-    toBeEnabled(): R;
-    toBeVisible(): R;
-    toContainElement(element: ReactTestInstance | null): R;
-    toHaveTextContent(text: string | RegExp, options?: { normalizeWhitespace: boolean }): R;
-    toHaveProp(attr: string, value?: unknown): R;
-    toHaveStyle(style: StyleProp<ViewStyle | TextStyle | ImageStyle>): R;
-    toHaveAccessibilityState(state: AccessibilityState): R;
-    toHaveAccessibilityValue(state: AccessibilityValueMatcher): R;
+interface JestNativeMatchers<R extends void | Promise<void>> {
+  toBeDisabled(): R;
+  toBeEmptyElement(): R;
+  toBeEnabled(): R;
+  toBeVisible(): R;
+  toContainElement(element: ReactTestInstance | null): R;
+  toHaveTextContent(text: string | RegExp, options?: { normalizeWhitespace: boolean }): R;
+  toHaveProp(attr: string, value?: unknown): R;
+  toHaveStyle(style: StyleProp<ViewStyle | TextStyle | ImageStyle>): R;
+  toHaveAccessibilityState(state: AccessibilityState): R;
+  toHaveAccessibilityValue(state: AccessibilityValueMatcher): R;
 
-    /** @deprecated This function has been renamed to `toBeEmptyElement`. */
-    toBeEmpty(): R;
+  /** @deprecated This function has been renamed to `toBeEmptyElement`. */
+  toBeEmpty(): R;
+}
+
+// `@types/jest`
+declare global {
+  namespace jest {
+    interface Matchers<R, T> extends JestNativeMatchers<R> {}
   }
+}
+
+// `@jest/globals`
+declare module '@jest/expect' {
+  interface Matchers<R extends void | Promise<void>> extends JestNativeMatchers<R> {}
 }
