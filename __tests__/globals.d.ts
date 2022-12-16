@@ -1,3 +1,5 @@
+import { Matchers } from '@jest/expect';
+
 declare module '@jest/expect' {
   interface Matchers<R extends void | Promise<void>> {
     toBeDisabled(): R;
